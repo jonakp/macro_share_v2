@@ -1,0 +1,47 @@
+<%= form_with(model: foodhistory, local: true) do |form| %>
+  <% if foodhistory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(foodhistory.errors.count, "error") %> prohibited this foodhistory from being saved:</h2>
+
+      <ul>
+      <% foodhistory.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calorie %>
+    <%= form.number_field :calorie %>
+  </div>
+
+  <div class="field">
+    <%= form.label :protein %>
+    <%= form.number_field :protein %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fat %>
+    <%= form.number_field :fat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :carbo %>
+    <%= form.number_field :carbo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image_name %>
+    <%= form.text_field :image_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_27_075759) do
+ActiveRecord::Schema.define(version: 2018_10_31_124042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "foodhistories", force: :cascade do |t|
+    t.string "name"
+    t.integer "calorie"
+    t.integer "protein"
+    t.integer "fat"
+    t.integer "carbo"
+    t.string "image_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "userfeatures", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "height"
+    t.integer "weight"
+    t.integer "age"
+    t.integer "activity"
+    t.integer "purpose"
+    t.integer "total_calorie"
+    t.integer "protein"
+    t.integer "fat"
+    t.integer "carbo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
