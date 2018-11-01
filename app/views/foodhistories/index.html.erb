@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>User</th>
       <th>Calorie</th>
       <th>Protein</th>
       <th>Fat</th>
@@ -19,6 +20,7 @@
     <% @foodhistories.each do |foodhistory| %>
       <tr>
         <td><%= foodhistory.name %></td>
+        <td><%= foodhistory.user_id %></td>
         <td><%= foodhistory.calorie %></td>
         <td><%= foodhistory.protein %></td>
         <td><%= foodhistory.fat %></td>

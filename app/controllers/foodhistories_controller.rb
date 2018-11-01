@@ -25,6 +25,7 @@ class FoodhistoriesController < ApplicationController
   # POST /foodhistories.json
   def create
     @foodhistory = Foodhistory.new(foodhistory_params)
+    @foodhistory.user_id = current_user.id
 
     respond_to do |format|
       if @foodhistory.save
