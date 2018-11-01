@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @foodhistory.name %>
+</p>
+
+<p>
+  <strong>Calorie:</strong>
+  <%= @foodhistory.calorie %>
+</p>
+
+<p>
+  <strong>Protein:</strong>
+  <%= @foodhistory.protein %>
+</p>
+
+<p>
+  <strong>Fat:</strong>
+  <%= @foodhistory.fat %>
+</p>
+
+<p>
+  <strong>Carbo:</strong>
+  <%= @foodhistory.carbo %>
+</p>
+
+<p>
+  <strong>Image name:</strong>
+  <%= @foodhistory.image_name %>
+</p>
+
+<%= link_to 'Edit', edit_foodhistory_path(@foodhistory) %> |
+<%= link_to 'Back', foodhistories_path %>

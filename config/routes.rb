@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :foodhistories
+  resources :userfeatures
   devise_for :users
   resources :users
   root "users#index"

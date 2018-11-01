@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Userfeatures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Height</th>
+      <th>Weight</th>
+      <th>Age</th>
+      <th>Activity</th>
+      <th>Purpose</th>
+      <th>Total calorie</th>
+      <th>Protein</th>
+      <th>Fat</th>
+      <th>Carbo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @userfeatures.each do |userfeature| %>
+      <tr>
+        <td><%= userfeature.user_id %></td>
+        <td><%= userfeature.height %></td>
+        <td><%= userfeature.weight %></td>
+        <td><%= userfeature.age %></td>
+        <td><%= userfeature.activity %></td>
+        <td><%= userfeature.purpose %></td>
+        <td><%= userfeature.total_calorie %></td>
+        <td><%= userfeature.protein %></td>
+        <td><%= userfeature.fat %></td>
+        <td><%= userfeature.carbo %></td>
+        <td><%= link_to 'Show', userfeature %></td>
+        <td><%= link_to 'Edit', edit_userfeature_path(userfeature) %></td>
+        <td><%= link_to 'Destroy', userfeature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Userfeature', new_userfeature_path %>
