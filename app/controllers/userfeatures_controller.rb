@@ -25,6 +25,7 @@ class UserfeaturesController < ApplicationController
   # POST /userfeatures.json
   def create
     @userfeature = Userfeature.new(userfeature_params)
+    @userfeature.user_id = current_user.id
 
     respond_to do |format|
       if @userfeature.save
@@ -69,6 +70,6 @@ class UserfeaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def userfeature_params
-      params.require(:userfeature).permit(:user_id, :height, :weight, :age, :activity, :purpose, :total_calorie, :protein, :fat, :carbo)
+      params.require(:userfeature).permit(:height, :weight, :age, :activity, :purpose, :total_calorie, :protein, :fat, :carbo)
     end
 end
