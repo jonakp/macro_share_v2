@@ -26,10 +26,12 @@ class UserfeaturesController < ApplicationController
   def create
     @userfeature = Userfeature.new(userfeature_params)
     @userfeature.user_id = current_user.id
+    @userfeature.user.name = userfeature_user_params[:name]
+    @userfeature.user.gender = userfeature_user_params[:gender]
 
     respond_to do |format|
-      if @userfeature.save
-        format.html { redirect_to @userfeature, notice: 'Userfeature was successfully created.' }
+      if @userfeature.save && @userfeature.user.save
+        format.html { redirect_to @userfeature.user, notice: 'Userfeature was successfully created.' }
         format.json { render :show, status: :created, location: @userfeature }
       else
         format.html { render :new }
@@ -71,5 +73,9 @@ class UserfeaturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def userfeature_params
       params.require(:userfeature).permit(:height, :weight, :age, :activity, :purpose, :total_calorie, :protein, :fat, :carbo)
+    end
+
+    def userfeature_user_params
+      params.require(:userfeature).permit(:name, :gender)
     end
 end
