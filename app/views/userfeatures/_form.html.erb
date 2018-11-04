@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :gender %><br>
+    <%= form.select :gender, [['男性','male'], ['女性','female'], ['その他','not_applicable'], ['無回答','not_known']], class: 'form-control' %><br> 
+  </div>
+
+  <div class="field">
     <%= form.label :height %>
     <%= form.number_field :height %>
   </div>
@@ -27,33 +32,20 @@
   </div>
 
   <div class="field">
-    <%= form.label :activity %>
-    <%= form.number_field :activity %>
+    <%= form.label :activity%><br>
+    <%= form.select :activity, [['高い','high'], ['普通','middle'], ['低い','low']], class: 'form-control' %><br> 
   </div>
 
-  <div class="field">
-    <%= form.label :purpose %>
-    <%= form.number_field :purpose %>
-  </div>
+Activityの目安
+<ul>
+<li>activity = 低い：座り仕事が多い</li>
+<li>activity = 普通：立ち仕事や重労働が多い</li>
+<li>activity = 低い：立ち仕事や重労働が多い＆運動もしている</li>
+</ul>
 
   <div class="field">
-    <%= form.label :total_calorie %>
-    <%= form.number_field :total_calorie %>
-  </div>
-
-  <div class="field">
-    <%= form.label :protein %>
-    <%= form.number_field :protein %>
-  </div>
-
-  <div class="field">
-    <%= form.label :fat %>
-    <%= form.number_field :fat %>
-  </div>
-
-  <div class="field">
-    <%= form.label :carbo %>
-    <%= form.number_field :carbo %>
+    <%= form.label :purpose%><br>
+    <%= form.select :purpose, [['増量','increase'], ['維持','maintain'], ['減量','loss']], class: 'form-control' %><br> 
   </div>
 
   <div class="actions">

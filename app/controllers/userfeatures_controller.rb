@@ -25,6 +25,7 @@ class UserfeaturesController < ApplicationController
   # POST /userfeatures.json
   def create
     @userfeature = Userfeature.new(userfeature_params)
+    @userfeature.culculate_calorie_macro()
     @userfeature.user_id = current_user.id
 
     respond_to do |format|
