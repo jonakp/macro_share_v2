@@ -1,6 +1,5 @@
 class Userfeature < ApplicationRecord
   belongs_to :user
-  enum gender: { not_known: 0, male: 1, female: 2, not_applicable: 9 }
   enum activity: { high: 0, middle: 1, low: 2 }
   enum purpose: { increase: 0, maintain: 1, loss: 2 }
 
@@ -12,7 +11,7 @@ class Userfeature < ApplicationRecord
   end
 
   def culculate_calorie
-    gender_num = user.gender == 'male' ? 5 : -161
+    gender_num = self.user.gender == 'male' ? 5 : -161
     activity_val = activity_value()
     purpose_val =  purpose_value()
     basic_calorie = (10 * weight) + (6.25 * height) -

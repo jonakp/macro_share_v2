@@ -25,11 +25,12 @@ class UserfeaturesController < ApplicationController
   # POST /userfeatures.json
   def create
     @userfeature = Userfeature.new(userfeature_params)
-    @userfeature.culculate_calorie_macro()
     @userfeature.user_id = current_user.id
+    @userfeature.user.gender = userfeature_user_params[:gender]
+    @userfeature.culculate_calorie_macro()
 
     respond_to do |format|
-      if @userfeature.save
+      if @userfeature.save && @userfeature.user.save
         format.html { redirect_to @userfeature, notice: 'Userfeature was successfully created.' }
         format.json { render :show, status: :created, location: @userfeature }
       else
@@ -42,8 +43,11 @@ class UserfeaturesController < ApplicationController
   # PATCH/PUT /userfeatures/1
   # PATCH/PUT /userfeatures/1.json
   def update
+    @userfeature.attributes = userfeature_params
+    @userfeature.user.gender = userfeature_user_params[:gender]
+    @userfeature.culculate_calorie_macro()
     respond_to do |format|
-      if @userfeature.update(userfeature_params)
+      if @userfeature.save && @userfeature.user.save
         format.html { redirect_to @userfeature, notice: 'Userfeature was successfully updated.' }
         format.json { render :show, status: :ok, location: @userfeature }
       else
@@ -72,5 +76,9 @@ class UserfeaturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def userfeature_params
       params.require(:userfeature).permit(:height, :weight, :age, :activity, :purpose, :total_calorie, :protein, :fat, :carbo)
+    end
+
+    def userfeature_user_params
+      params.require(:userfeature).permit(:gender)
     end
 end
