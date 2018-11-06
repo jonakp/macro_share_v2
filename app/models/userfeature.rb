@@ -10,6 +10,8 @@ class Userfeature < ApplicationRecord
     culculate_macro()
   end
 
+  # private
+
   def culculate_calorie
     gender_num = self.user.gender == 'male' ? 5 : -161
     activity_val = activity_value()
