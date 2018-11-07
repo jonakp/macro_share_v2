@@ -1,0 +1,17 @@
+ja:
+  enums:
+    user:
+      gender:
+        male: 男性
+        female: 女性
+        not_applicable: その他
+        not_known: 未回答
+    userfeature:
+      activity:
+        high: 高い
+        middle: 普通
+        low: 低い
+      purpose:
+        increase: 増量
+        maintain: 維持
+        loss: 減量

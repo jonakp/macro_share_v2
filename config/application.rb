@@ -20,5 +20,4 @@ module MacroShare
         view_specs: false
     end
   end
-
 end
