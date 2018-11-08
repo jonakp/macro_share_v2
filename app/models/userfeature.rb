@@ -1,6 +1,6 @@
 class Userfeature < ApplicationRecord
   belongs_to :user
-  before_save :culculate_calorie_macro
+  before_validation :culculate_calorie_macro
   enum activity: { high: 0, middle: 1, low: 2 }
   enum purpose: { increase: 0, maintain: 1, loss: 2 }
 
