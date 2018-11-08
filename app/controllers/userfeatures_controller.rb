@@ -27,7 +27,6 @@ class UserfeaturesController < ApplicationController
     @userfeature = Userfeature.new(userfeature_params)
     @userfeature.user_id = current_user.id
     @userfeature.user.gender = userfeature_user_params[:gender]
-    @userfeature.culculate_calorie_macro()
 
     respond_to do |format|
       if @userfeature.save && @userfeature.user.save
@@ -45,7 +44,7 @@ class UserfeaturesController < ApplicationController
   def update
     @userfeature.attributes = userfeature_params
     @userfeature.user.gender = userfeature_user_params[:gender]
-    @userfeature.culculate_calorie_macro()
+
     respond_to do |format|
       if @userfeature.save && @userfeature.user.save
         format.html { redirect_to @userfeature, notice: 'Userfeature was successfully updated.' }
