@@ -13,9 +13,8 @@ class Userfeature < ApplicationRecord
     culculate_macro()
   end
 
-
   def culculate_calorie
-    gender_num = self.user.gender == 'male' ? 5 : -161
+    gender_num = user.male? ? 5 : -161
     activity_val = activity_value()
     purpose_val =  purpose_value()
     basic_calorie = (10 * weight) + (6.25 * height) -
@@ -31,20 +30,14 @@ class Userfeature < ApplicationRecord
   end
 
   def activity_value
-    case self.activity
-    when 'low' then 1.2
-    when 'middle' then 1.55
-    when 'high' then 1.725
-    else 1.2
-    end
+    return 1.2 if low?
+    return 1.55 if middle?
+    return 1.725 if high?
   end
 
   def purpose_value
-    case self.purpose
-    when 'loss' then 0.8
-    when 'maintain' then 1
-    when 'increase' then 1.2
-    else 1.2
-    end
+    return 0.8 if loss?
+    return 1 if maintain?
+    return 1.2 if increase?
   end
 end
