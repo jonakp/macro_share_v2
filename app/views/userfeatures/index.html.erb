@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>User</th>
+      <th>User_Name</th>
       <th>Height</th>
       <th>Weight</th>
       <th>Age</th>
@@ -23,6 +24,7 @@
     <% @userfeatures.each do |userfeature| %>
       <tr>
         <td><%= userfeature.user_id %></td>
+        <td><%= userfeature.user.name %></td>
         <td><%= userfeature.height %></td>
         <td><%= userfeature.weight %></td>
         <td><%= userfeature.age %></td>
