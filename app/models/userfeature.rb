@@ -30,14 +30,14 @@ class Userfeature < ApplicationRecord
   end
 
   def activity_value
-    return 1.2 if low?
     return 1.55 if middle?
     return 1.725 if high?
+    1.2
   end
 
   def purpose_value
-    return 0.8 if loss?
     return 1 if maintain?
     return 1.2 if increase?
+    0.8
   end
 end
