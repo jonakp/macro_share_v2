@@ -14,7 +14,7 @@ class UserfeaturesController < ApplicationController
 
   # GET /userfeatures/new
   def new
-    @userfeature = Userfeature.new
+    @userfeature = current_user.userfeatures.build
   end
 
   # GET /userfeatures/1/edit
@@ -24,14 +24,11 @@ class UserfeaturesController < ApplicationController
   # POST /userfeatures
   # POST /userfeatures.json
   def create
-    @userfeature = Userfeature.new(userfeature_params)
-    @userfeature.user_id = current_user.id
-    @userfeature.user.name = userfeature_user_params[:name]
-    @userfeature.user.gender = userfeature_user_params[:gender]
+    @user = current_user
 
     respond_to do |format|
-      if @userfeature.save && @userfeature.user.save
-        format.html { redirect_to @userfeature.user, notice: 'Userfeature was successfully created.' }
+      if @user.update(nested_user_params)
+        format.html { redirect_to @user, notice: 'Userfeature was successfully created.' }
         format.json { render :show, status: :created, location: @userfeature }
       else
         format.html { render :new }
@@ -74,11 +71,11 @@ class UserfeaturesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def userfeature_params
-      params.require(:userfeature).permit(:height, :weight, :age, :activity, :purpose, :total_calorie, :protein, :fat, :carbo)
-    end
-
-    def userfeature_user_params
-      params.require(:userfeature).permit(:name, :gender)
+    def nested_user_params
+      params.require(:user).permit(
+        :name,
+        :gender,
+        userfeatures_attributes: [:height, :weight, :age, :activity, :purpose]
+      )
     end
 end
