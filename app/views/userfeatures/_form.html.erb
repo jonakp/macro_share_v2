@@ -1,4 +1,4 @@
-<%= form_with(model: current_user, local: true, url: userfeatures_path, method: :post) do |form| %>
+<%= form_with(model: current_user, local: true, url: userfeature_path, method: :patch) do |form| %>
   <% if userfeature.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(userfeature.errors.count, "error") %> prohibited this userfeature from being saved:</h2>
@@ -22,6 +22,9 @@
   </div>
 
   <%= form.fields_for :userfeatures, userfeature do |userfeature_f| %>
+    <div class="field">
+      <%= userfeature_f.hidden_field :id, value: userfeature.id %>
+    </div>
     <div class="field">
       <%= userfeature_f.label :height %>
       <%= userfeature_f.number_field :height %>
