@@ -43,6 +43,9 @@ class UserfeaturesController < ApplicationController
   # PATCH/PUT /userfeatures/1
   # PATCH/PUT /userfeatures/1.json
   def update
+    @userfeature.attributes = userfeature_params
+    @userfeature.user.gender = userfeature_user_params[:gender]
+
     respond_to do |format|
       if @userfeature.update(userfeature_params) && @userfeature.user.update(userfeature_user_params)
         format.html { redirect_to @userfeature.user, notice: 'Userfeature was successfully updated.' }
