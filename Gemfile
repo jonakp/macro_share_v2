@@ -7,6 +7,8 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.1'
 # Use rubocop for static code analyzer
 gem 'rubocop', '~> 0.60.0', require: false
+# Use ransack for serch feature
+gem 'ransack', '~> 2.1.0'
 # User enum_help for japanese select form
 gem 'enum_help', '~> 0.0.17'
 # User devise for authentication
