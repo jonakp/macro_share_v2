@@ -5,6 +5,8 @@ ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
+# Use rubocop for static code analyzer
+gem 'rubocop', '~> 0.60.0', require: false
 # User enum_help for japanese select form
 gem 'enum_help', '~> 0.0.17'
 # User devise for authentication
