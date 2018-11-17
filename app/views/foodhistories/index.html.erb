@@ -7,6 +7,12 @@
   <%= f.label :name_cont %>
   <%= f.search_field :name_cont %>
 
+  <%= f.label :calorie_lt %>
+  <%= f.search_field :calorie_lt %>
+
+  <%= f.label :user_name_cont %>
+  <%= f.search_field :user_name_cont %>
+
  <%= f.submit %>
 <% end %>
 
@@ -28,7 +34,7 @@
     <% @foodhistories.each do |foodhistory| %>
       <tr>
         <td><%= foodhistory.name %></td>
-        <td><%= foodhistory.user_id %></td>
+        <td><%= foodhistory.user.name %></td>
         <td><%= foodhistory.calorie %></td>
         <td><%= foodhistory.protein %></td>
         <td><%= foodhistory.fat %></td>

@@ -5,7 +5,8 @@ class FoodhistoriesController < ApplicationController
   # GET /foodhistories.json
   def index
     @q = Foodhistory.ransack(params[:q])
-    @foodhistories = @q.result(distinct: true)
+    @foodhistories = @q.result
+    # @foodhistories2 = @q.result(distinct: true).select('name')
   end
 
   # GET /foodhistories/1
@@ -15,11 +16,14 @@ class FoodhistoriesController < ApplicationController
 
   # GET /foodhistories/new
   def new
-    if reuse_id = foodhistory_reuse_param[:reuse_record_id]
-      @foodhistory = Foodhistory.find(reuse_id).dup
-    else
-      @foodhistory = Foodhistory.new
-    end
+    # スタンダードな実装？もうちょっとスマートにしたい
+    # if params[:reuse_record_id]
+    #   @foodhistory = Foodhistory.find(params[:reuse_record_id]).dup
+    # else
+    #   @foodhistory = Foodhistory.new
+    # end
+    @foodhistory = Foodhistory.find_by(id: params[:reuse_record_id]).dup
+    @foodhistory ||= Foodhistory.new
   end
 
   # GET /foodhistories/1/edit
@@ -76,9 +80,5 @@ class FoodhistoriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def foodhistory_params
       params.require(:foodhistory).permit(:name, :calorie, :protein, :fat, :carbo, :image_name)
-    end
-
-    def foodhistory_reuse_param
-      params.permit(:reuse_record_id)
     end
 end
