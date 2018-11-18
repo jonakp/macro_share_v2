@@ -79,9 +79,11 @@ class UserfeaturesController < ApplicationController
       )
     end
 
-    # userfeaturesが更新されない＆user(のgender)が更新される場合は、
-    # userからculcurate_calorie_macroを行う必要がある。
-    # user側で対象のuserfeatureを判別できるようにするために、
+    # <Issue#20>
+    # userfeaturesのattributesは更新されないが、
+    # user(のgender)が更新される場合は、
+    # user modelのcall backからculcurate_calorie_macroを行う。
+    # user modelで対象のuserfeatureを判別できるようにするために、
     # @user.userfeature_idを設定する。
     def confirm_userfeature_update_skip
       userfeature_params = params[:user][:userfeatures_attributes][:'0']
@@ -89,18 +91,8 @@ class UserfeaturesController < ApplicationController
     end
 
     def no_userfeature_update?(userfeature_params)
-      # 雑な実装。もう少しスマートな形に変えたい。
-      if (
-        @userfeature.id.to_s == userfeature_params[:id] \
-        && @userfeature.height.to_s == userfeature_params[:height] \
-        && @userfeature.weight.to_s == userfeature_params[:weight] \
-        && @userfeature.age.to_s == userfeature_params[:age] \
-        && @userfeature.activity.to_s == userfeature_params[:activity] \
-        && @userfeature.purpose.to_s == userfeature_params[:purpose] \
-        )
-        true
-      else
-        false
-      end
+      # 本来は@userfeatureのソートなり要素の削除なりした上でrejectの利用が必要そうだが、
+      # このケースではuserfeature_paramsの構造上必要なかった
+      userfeature_params.reject { |k, v| v == @userfeature[k].to_s }.keys.blank?
     end
 end

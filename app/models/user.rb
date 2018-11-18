@@ -12,11 +12,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  # <Issue#20>
+  # userfeatures_controllerから、userfeature_idを受け取った場合は、
+  # user modelからculcurate_calorie_macroを行う
+  # 詳細はuserfeatures_controllerの、confirm_userfeature_update_skipメソッドを参照
   def update_calorie_macro
-    if userfeature_id.present?
-      userfeature = userfeatures.find(userfeature_id)
-      userfeature.culculate_calorie_macro
-      userfeature.save
-    end
+    userfeatures.find(userfeature_id).save if userfeature_id.present?
   end
 end
