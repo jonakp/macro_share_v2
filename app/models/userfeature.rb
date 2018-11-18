@@ -4,15 +4,18 @@ class Userfeature < ApplicationRecord
   enum activity: { high: 0, middle: 1, low: 2 }
   enum purpose: { increase: 0, maintain: 1, loss: 2 }
 
-  private
 
-# カロリーやマクロ栄養素の計算式に関しては、以下のURLの”計算の解説”を参照
-# https://dietgenius.jp/macro-nutrient-calculator/#1492304410953-fc2d4b82-8b8c
+  # カロリーやマクロ栄養素の計算式に関しては、以下のURLの”計算の解説”を参照
+  # https://dietgenius.jp/macro-nutrient-calculator/#1492304410953-fc2d4b82-8b8c
+
+  # culculate_calorie_macroはuser modelからも利用するため
+  # privateには指定しない
   def culculate_calorie_macro
     culculate_calorie()
     culculate_macro()
   end
 
+  private
   def culculate_calorie
     gender_num = user.male? ? 5 : -161
     activity_val = activity_value()

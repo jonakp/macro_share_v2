@@ -42,6 +42,7 @@ class UserfeaturesController < ApplicationController
   def update
     @user = current_user
 
+    confirm_userfeature_update_skip()
     respond_to do |format|
       if @user.update(nested_user_params)
         format.html { redirect_to @userfeature.user, notice: 'Userfeature was successfully updated.' }
@@ -76,5 +77,30 @@ class UserfeaturesController < ApplicationController
         :gender,
         userfeatures_attributes: [:id, :height, :weight, :age, :activity, :purpose]
       )
+    end
+
+    # userfeaturesが更新されない＆user(のgender)が更新される場合は、
+    # userからculcurate_calorie_macroを行う必要がある。
+    # user側で対象のuserfeatureを判別できるようにするために、
+    # @user.userfeature_idを設定する。
+    def confirm_userfeature_update_skip
+      userfeature_params = params[:user][:userfeatures_attributes][:'0']
+      @user.userfeature_id = userfeature_params[:id] if no_userfeature_update?(userfeature_params)
+    end
+
+    def no_userfeature_update?(userfeature_params)
+      # 雑な実装。もう少しスマートな形に変えたい。
+      if (
+        @userfeature.id.to_s == userfeature_params[:id] \
+        && @userfeature.height.to_s == userfeature_params[:height] \
+        && @userfeature.weight.to_s == userfeature_params[:weight] \
+        && @userfeature.age.to_s == userfeature_params[:age] \
+        && @userfeature.activity.to_s == userfeature_params[:activity] \
+        && @userfeature.purpose.to_s == userfeature_params[:purpose] \
+        )
+        true
+      else
+        false
+      end
     end
 end
