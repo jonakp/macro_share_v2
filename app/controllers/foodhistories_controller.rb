@@ -4,7 +4,8 @@ class FoodhistoriesController < ApplicationController
   # GET /foodhistories
   # GET /foodhistories.json
   def index
-    @foodhistories = Foodhistory.all
+    @q = Foodhistory.ransack(params[:q])
+    @foodhistories = @q.result
   end
 
   # GET /foodhistories/1
@@ -14,7 +15,8 @@ class FoodhistoriesController < ApplicationController
 
   # GET /foodhistories/new
   def new
-    @foodhistory = Foodhistory.new
+    @foodhistory = params[:reuse_record_id] ?
+     Foodhistory.find(params[:reuse_record_id]).dup : Foodhistory.new
   end
 
   # GET /foodhistories/1/edit
