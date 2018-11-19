@@ -42,6 +42,7 @@ class UserfeaturesController < ApplicationController
   def update
     @user = current_user
 
+    confirm_userfeature_update_skip()
     respond_to do |format|
       if @user.update(nested_user_params)
         format.html { redirect_to @userfeature.user, notice: 'Userfeature was successfully updated.' }
@@ -76,5 +77,22 @@ class UserfeaturesController < ApplicationController
         :gender,
         userfeatures_attributes: [:id, :height, :weight, :age, :activity, :purpose]
       )
+    end
+
+    # <Issue#20>
+    # userfeaturesのattributesは更新されないが、
+    # user(のgender)が更新される場合は、
+    # user modelのcall backからculcurate_calorie_macroを行う。
+    # user modelで対象のuserfeatureを判別できるようにするために、
+    # @user.userfeature_idを設定する。
+    def confirm_userfeature_update_skip
+      userfeature_params = params[:user][:userfeatures_attributes][:'0']
+      @user.userfeature_id = userfeature_params[:id] if no_userfeature_update?(userfeature_params)
+    end
+
+    def no_userfeature_update?(userfeature_params)
+      # 本来は@userfeatureのソートなり要素の削除なりした上でrejectの利用が必要そうだが、
+      # このケースではuserfeature_paramsの構造上必要なかった
+      userfeature_params.reject { |k, v| v == @userfeature[k].to_s }.keys.blank?
     end
 end

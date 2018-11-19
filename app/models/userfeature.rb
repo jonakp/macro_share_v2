@@ -6,8 +6,8 @@ class Userfeature < ApplicationRecord
 
   private
 
-# カロリーやマクロ栄養素の計算式に関しては、以下のURLの”計算の解説”を参照
-# https://dietgenius.jp/macro-nutrient-calculator/#1492304410953-fc2d4b82-8b8c
+  # カロリーやマクロ栄養素の計算式に関しては、以下のURLの”計算の解説”を参照
+  # https://dietgenius.jp/macro-nutrient-calculator/#1492304410953-fc2d4b82-8b8c
   def culculate_calorie_macro
     culculate_calorie()
     culculate_macro()
