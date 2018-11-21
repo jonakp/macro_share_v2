@@ -44,11 +44,11 @@
           <td><%= foodhistory.carbo %></td>
           <td><%= foodhistory.image_name %></td>
           <td><%= link_to 'Show', foodhistory %></td>
-        <% end %>
-        <% if foodhistory.can_edit?(current_user) %>
-          <td><%= link_to 'Edit', edit_foodhistory_path(foodhistory) %></td>
-          <td><%= link_to 'Reuse', new_foodhistory_path(reuse_record_id: foodhistory.id) %></td>
-          <td><%= link_to 'Destroy', foodhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if foodhistory.can_edit?(current_user) %>
+            <td><%= link_to 'Edit', edit_foodhistory_path(foodhistory) %></td>
+            <td><%= link_to 'Reuse', new_foodhistory_path(reuse_record_id: foodhistory.id) %></td>
+            <td><%= link_to 'Destroy', foodhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>
