@@ -20,4 +20,8 @@ class User < ApplicationRecord
   def update_calorie_macro
     userfeatures.find(userfeature_id).save if userfeature_id.present?
   end
+
+  def current_user?(current_user)
+    current_user.id == id
+  end
 end

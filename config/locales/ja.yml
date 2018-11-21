@@ -16,6 +16,6 @@ ja:
         maintain: 維持
         loss: 減量
     foodhistory:
-      view_range_stat:
-        view_public: 公開
-        view_private: 非公開
+      mode:
+        pri: 非公開
+        pub: 公開

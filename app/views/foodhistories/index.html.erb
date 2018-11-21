@@ -34,16 +34,18 @@
   <tbody>
     <% @foodhistories.each do |foodhistory| %>
       <tr>
-        <% if foodhistory.view_public? || current_user.id == foodhistory.user.id %>
+        <% if foodhistory.can_access?(current_user) %>
           <td><%= foodhistory.name %></td>
           <td><%= foodhistory.user.name %></td>
-          <td><%= foodhistory.view_range_stat_i18n %></td>
+          <td><%= foodhistory.mode_i18n %></td>
           <td><%= foodhistory.calorie %></td>
           <td><%= foodhistory.protein %></td>
           <td><%= foodhistory.fat %></td>
           <td><%= foodhistory.carbo %></td>
           <td><%= foodhistory.image_name %></td>
           <td><%= link_to 'Show', foodhistory %></td>
+        <% end %>
+        <% if foodhistory.can_edit?(current_user) %>
           <td><%= link_to 'Edit', edit_foodhistory_path(foodhistory) %></td>
           <td><%= link_to 'Reuse', new_foodhistory_path(reuse_record_id: foodhistory.id) %></td>
           <td><%= link_to 'Destroy', foodhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>

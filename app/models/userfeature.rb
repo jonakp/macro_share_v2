@@ -4,6 +4,9 @@ class Userfeature < ApplicationRecord
   enum activity: { high: 0, middle: 1, low: 2 }
   enum purpose: { increase: 0, maintain: 1, loss: 2 }
 
+  def can_access?(current_user)
+    current_user.id == user.id
+  end
   private
 
   # カロリーやマクロ栄養素の計算式に関しては、以下のURLの”計算の解説”を参照
