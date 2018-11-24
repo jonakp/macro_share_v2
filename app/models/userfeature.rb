@@ -4,8 +4,8 @@ class Userfeature < ApplicationRecord
   enum activity: { high: 0, middle: 1, low: 2 }
   enum purpose: { increase: 0, maintain: 1, loss: 2 }
 
-  def can_access?(current_user)
-    current_user.id == user.id
+  def own?(c_user)
+    c_user == user
   end
   private
 

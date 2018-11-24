@@ -3,11 +3,11 @@ class Foodhistory < ApplicationRecord
   enum mode: { pri: 0, pub: 1 }
 
   # 以下の2つのメソッドは上手く1つにまとめる方法はないか、要検討
-  def can_access?(current_user)
-    pub? || current_user.id == user.id
+  def can_access?(c_user)
+    pub? || own?(c_user)
   end
 
-  def can_edit?(current_user)
-    current_user.id == user.id
+  def own?(c_user)
+    c_user == user
   end
 end
