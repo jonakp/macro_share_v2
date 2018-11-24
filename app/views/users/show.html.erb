@@ -25,5 +25,5 @@
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
 
-<%= render 'show_userfeature', userfeature: @user.primary_userfeature %>
-<%= render 'show_foodhistory', foodhistories: @user.foodhistories_per_day %>
+<%= render 'shared/show_target_userfeature', userfeature: @user.primary_userfeature %>
+<%= render 'shared/show_foodhistories', foodhistories: @user.foodhistories_per_day %>
