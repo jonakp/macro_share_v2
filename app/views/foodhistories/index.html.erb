@@ -21,6 +21,7 @@
     <tr>
       <th>Name</th>
       <th>User</th>
+      <th>View Range Stat</th>
       <th>Calorie</th>
       <th>Protein</th>
       <th>Fat</th>
@@ -32,19 +33,24 @@
 
   <tbody>
     <% @foodhistories.each do |foodhistory| %>
-      <tr>
-        <td><%= foodhistory.name %></td>
-        <td><%= foodhistory.user.name %></td>
-        <td><%= foodhistory.calorie %></td>
-        <td><%= foodhistory.protein %></td>
-        <td><%= foodhistory.fat %></td>
-        <td><%= foodhistory.carbo %></td>
-        <td><%= foodhistory.image_name %></td>
-        <td><%= link_to 'Show', foodhistory %></td>
-        <td><%= link_to 'Edit', edit_foodhistory_path(foodhistory) %></td>
-        <td><%= link_to 'Reuse', new_foodhistory_path(reuse_record_id: foodhistory.id) %></td>
-        <td><%= link_to 'Destroy', foodhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if foodhistory.can_access?(current_user) %>
+        <tr>
+          <td><%= foodhistory.name %></td>
+          <td><%= foodhistory.user.name %></td>
+          <td><%= foodhistory.mode_i18n %></td>
+          <td><%= foodhistory.calorie %></td>
+          <td><%= foodhistory.protein %></td>
+          <td><%= foodhistory.fat %></td>
+          <td><%= foodhistory.carbo %></td>
+          <td><%= foodhistory.image_name %></td>
+          <td><%= link_to 'Show', foodhistory %></td>
+          <% if foodhistory.can_edit?(current_user) %>
+            <td><%= link_to 'Edit', edit_foodhistory_path(foodhistory) %></td>
+            <td><%= link_to 'Reuse', new_foodhistory_path(reuse_record_id: foodhistory.id) %></td>
+            <td><%= link_to 'Destroy', foodhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

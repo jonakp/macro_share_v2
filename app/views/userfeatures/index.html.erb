@@ -35,8 +35,10 @@
         <td><%= userfeature.fat %></td>
         <td><%= userfeature.carbo %></td>
         <td><%= link_to 'Show', userfeature %></td>
-        <td><%= link_to 'Edit', edit_userfeature_path(userfeature) %></td>
-        <td><%= link_to 'Destroy', userfeature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if userfeature.can_edit?(current_user) %>
+          <td><%= link_to 'Edit', edit_userfeature_path(userfeature) %></td>
+          <td><%= link_to 'Destroy', userfeature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
