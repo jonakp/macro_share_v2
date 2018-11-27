@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :userfeatures
   has_many :foodhistories
+  has_many :likes
+  has_many :like_foodhistories, through: :likes, source: :foodhistory
   accepts_nested_attributes_for :userfeatures
   before_validation :update_calorie_macro
   attr_accessor :userfeature_id
@@ -19,5 +21,17 @@ class User < ApplicationRecord
   # 詳細はuserfeatures_controllerの、confirm_userfeature_update_skipメソッドを参照
   def update_calorie_macro
     userfeatures.find(userfeature_id).save if userfeature_id.present?
+  end
+
+  def like_this?(foodhistory_id)
+    like_foodhistories.find_by(id: foodhistory_id).present?
+  end
+
+  def like(foodhistory)
+    likes.create(foodhistory_id: foodhistory.id)
+  end
+
+  def unlike(foodhistory)
+    likes.find_by(foodhistory_id: foodhistory.id).destroy
   end
 end

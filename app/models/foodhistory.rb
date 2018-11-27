@@ -1,8 +1,9 @@
 class Foodhistory < ApplicationRecord
   belongs_to :user
+  has_many :likes
+  has_many :users, through: :likes
   enum mode: { pri: 0, pub: 1 }
 
-  # 以下の2つのメソッドは上手く1つにまとめる方法はないか、要検討
   def can_access?(user)
     pub? || can_edit?(user)
   end
