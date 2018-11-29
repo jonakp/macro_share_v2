@@ -1,0 +1,4 @@
+<h2>食事履歴(<%= Date.today + day_transition.days%>)</h2>
+<%= render 'shared/show_foodhistories', foodhistories: user.foodhistories_per_day(day_transition) %>
+<%= link_to 'Previous Day', user_path(day_transition: day_transition - 1) %> |
+<%= link_to 'Next Day', user_path(day_transition: day_transition + 1) %>

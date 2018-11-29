@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @day_transition = params[:day_transition].to_i
   end
 
   # GET /users/new
