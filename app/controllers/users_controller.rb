@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @day_transition = params[:day_transition].to_i
+    @date = blank_date_params? ?
+      Date.today : Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
   end
 
   # GET /users/new
@@ -72,5 +73,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :gender, :image_name)
+    end
+
+    def blank_date_params?
+      !params[:year] || !params[:month] || !params[:day]
     end
 end

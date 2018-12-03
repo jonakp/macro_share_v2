@@ -21,12 +21,6 @@ class User < ApplicationRecord
     userfeatures.find(userfeature_id).save if userfeature_id.present?
   end
 
-  def foodhistories_per_day(transition_number)
-    from = (Time.now + transition_number.days).beginning_of_day
-    to = (Time.now + transition_number.days).end_of_day
-    foodhistories.where(created_at: from...to)
-  end
-
   def primary_userfeature
     # ひとまず暫定で、最初に登録したuserfeatureを、
     # primary-userfeatureとする
