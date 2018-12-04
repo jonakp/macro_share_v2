@@ -13,7 +13,7 @@ class Foodhistory < ApplicationRecord
   end
 
   def liked_by?(user)
-    user.liked_foodhistories.find_by(id: id).present?
+    likes.where(user: user).present?
   end
 
   def like(user)

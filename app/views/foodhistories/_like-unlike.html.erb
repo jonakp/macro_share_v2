@@ -1,5 +1,0 @@
-<% if foodhistory.liked_by?(current_user) %>
-  <%= link_to 'unlike', like_path(Like.specify_by_user_foodhistory(current_user, foodhistory)), method: :delete %>
-<% else %>
-  <%= link_to 'like', likes_path(foodhistory_id: foodhistory.id), method: :post %>
-<% end %>
