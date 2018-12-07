@@ -1,13 +1,26 @@
 class Foodhistory < ApplicationRecord
   belongs_to :user
+  has_many :likes
+  has_many :users, through: :likes
   enum mode: { pri: 0, pub: 1 }
 
-  # 以下の2つのメソッドは上手く1つにまとめる方法はないか、要検討
   def can_access?(user)
     pub? || can_edit?(user)
   end
 
   def can_edit?(user)
     user == self.user
+  end
+
+  def liked_by?(user)
+    likes.where(user: user).present?
+  end
+
+  def like(user)
+    likes.create!(user_id: user.id)
+  end
+
+  def unlike(user)
+    likes.find_by!(user_id: user.id).destroy
   end
 end

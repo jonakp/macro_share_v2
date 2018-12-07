@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :userfeatures
   has_many :foodhistories
+  has_many :likes
+  has_many :liked_foodhistories, through: :likes, source: :foodhistory
   accepts_nested_attributes_for :userfeatures
   before_validation :update_calorie_macro
   attr_accessor :userfeature_id
