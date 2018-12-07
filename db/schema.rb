@@ -30,10 +30,12 @@ ActiveRecord::Schema.define(version: 2018_11_26_204449) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "foodhistory_id"
+    t.bigint "user_id", null: false
+    t.bigint "foodhistory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["foodhistory_id"], name: "index_likes_on_foodhistory_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "userfeatures", force: :cascade do |t|
@@ -68,5 +70,7 @@ ActiveRecord::Schema.define(version: 2018_11_26_204449) do
   end
 
   add_foreign_key "foodhistories", "users"
+  add_foreign_key "likes", "foodhistories"
+  add_foreign_key "likes", "users"
   add_foreign_key "userfeatures", "users"
 end
