@@ -4,8 +4,8 @@ class Userfeature < ApplicationRecord
   enum activity: { high: 0, middle: 1, low: 2 }
   enum purpose: { increase: 0, maintain: 1, loss: 2 }
 
-  def own?(c_user)
-    c_user == user
+  def can_edit?(user)
+    user == self.user
   end
   private
 
