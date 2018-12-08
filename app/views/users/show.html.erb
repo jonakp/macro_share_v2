@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<h2>ユーザ情報</h2>
+
 <p>
   <strong>Name:</strong>
   <%= @user.name %>
@@ -22,3 +24,6 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
+<%= render 'shared/show_target_userfeature', userfeature: @user.primary_userfeature %>
+<%= render 'shared/foodhistory_daily_basis', user: @user, date: @date %>

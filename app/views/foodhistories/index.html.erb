@@ -16,49 +16,7 @@
  <%= f.submit %>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th>View Range Stat</th>
-      <th>Calorie</th>
-      <th>Protein</th>
-      <th>Fat</th>
-      <th>Carbo</th>
-      <th>Image name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @foodhistories.each do |foodhistory|%>
-      <% if foodhistory.can_access?(current_user) %>
-        <tr>
-          <td><%= foodhistory.name %></td>
-          <td><%= foodhistory.user.name %></td>
-          <td><%= foodhistory.mode_i18n %></td>
-          <td><%= foodhistory.calorie %></td>
-          <td><%= foodhistory.protein %></td>
-          <td><%= foodhistory.fat %></td>
-          <td><%= foodhistory.carbo %></td>
-          <td><%= foodhistory.image_name %></td>
-          <td><%= link_to 'Show', foodhistory %></td>
-          <% if foodhistory.liked_by?(current_user) %>
-            <td><%= link_to 'unlike', like_path(Like.by_user_and_foodhistory(current_user, foodhistory).first), method: :delete %></td>
-          <% else %>
-            <td><%= link_to 'like', likes_path(foodhistory_id: foodhistory.id), method: :post %></td>
-          <% end %>
-          <td><%= link_to 'Reuse', new_foodhistory_path(reuse_record_id: foodhistory.id) %></td>
-          <% if foodhistory.can_edit?(current_user) %>
-            <td><%= link_to 'Edit', edit_foodhistory_path(foodhistory) %></td>
-            <td><%= link_to 'Destroy', foodhistory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'shared/show_foodhistories', foodhistories: @foodhistories %>
 
 <br>
 

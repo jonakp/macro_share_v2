@@ -22,4 +22,11 @@ class User < ApplicationRecord
   def update_calorie_macro
     userfeatures.find(userfeature_id).save if userfeature_id.present?
   end
+
+  def primary_userfeature
+    # ひとまず暫定で、最初に登録したuserfeatureを、
+    # primary-userfeatureとする
+    # primary-userfeature = 現在採用しているuserfeature
+    userfeatures.first
+  end
 end

@@ -1,0 +1,4 @@
+<h2>食事履歴(<%= date.strftime("%Y年 %m月 %d日") %>)</h2>
+<%= link_to 'Previous Day', link_to_usershow_date(user, date - 1) %> |
+<%= link_to 'Next Day', link_to_usershow_date(user, date + 1) %>
+<%= render 'shared/show_foodhistories', foodhistories: Foodhistory.daily_basis(user, date) %>

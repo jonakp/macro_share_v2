@@ -1,0 +1,27 @@
+<h2>目標カロリー・マクロ栄養素</h2>
+
+<!--
+将来的にはfoodhistoryの情報と連携させて、
+1日毎の残り摂取可能カロリー・マクロ栄養素を表示する。
+現状は目標値を表示させるだけ。
+-->
+<table>
+  <thead>
+    <tr>
+      <th>Total calorie</th>
+      <th>Protein</th>
+      <th>Fat</th>
+      <th>Carbo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%= userfeature.total_calorie %></td>
+      <td><%= userfeature.protein %></td>
+      <td><%= userfeature.fat %></td>
+      <td><%= userfeature.carbo %></td>
+   </tr>
+  </tbody>
+</table>

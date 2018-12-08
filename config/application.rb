@@ -19,5 +19,7 @@ module MacroShare
       g.test_framework :rspec,
         view_specs: false
     end
+
+    config.time_zone = 'Tokyo'
   end
 end
