@@ -27,8 +27,11 @@
 
 <p>
   <strong>Image name:</strong>
-  <%= @foodhistory.image_name %>
+  <br>
+  <% @foodhistory.foodhistory_images.each do |foodhistory_image| %>
+    <%= image_tag foodhistory_image.avatar.url  %>
+    <br>
+  <% end %>
 </p>
 
-<%= link_to 'Edit', edit_foodhistory_path(@foodhistory) %> |
 <%= link_to 'Back', foodhistories_path %>
