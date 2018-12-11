@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :foodhistory do
     name { "rice" }
-    calorie { "test" }
+    calorie { "123" }
     mode { "pri" }
-    association :user
+    user
   end
 end
