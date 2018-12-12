@@ -2,6 +2,8 @@ class Foodhistory < ApplicationRecord
   belongs_to :user
   has_many :likes
   has_many :users, through: :likes
+  has_many :foodhistory_images, dependent: :destroy
+  accepts_nested_attributes_for :foodhistory_images
   enum mode: { pri: 0, pub: 1 }
   scope :daily_basis, -> (user, date) { where(user: user, created_at: date.beginning_of_day...date.end_of_day) }
 

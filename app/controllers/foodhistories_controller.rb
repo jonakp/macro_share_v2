@@ -17,10 +17,12 @@ class FoodhistoriesController < ApplicationController
   def new
     @foodhistory = params[:reuse_record_id] ?
      Foodhistory.find(params[:reuse_record_id]).dup : Foodhistory.new
+    @foodhistory_image = @foodhistory.foodhistory_images.build
   end
 
   # GET /foodhistories/1/edit
   def edit
+    @foodhistory_image = @foodhistory.foodhistory_images.build
   end
 
   # POST /foodhistories
@@ -72,6 +74,7 @@ class FoodhistoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def foodhistory_params
-      params.require(:foodhistory).permit(:name, :calorie, :protein, :fat, :carbo, :image_name, :mode)
+      params.require(:foodhistory).permit(:name, :calorie, :protein, :fat, :carbo, :image_name, :mode, foodhistory_images_attributes: [:avatar])
+
     end
 end

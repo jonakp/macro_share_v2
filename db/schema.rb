@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_26_204449) do
+ActiveRecord::Schema.define(version: 2018_12_10_203955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 2018_11_26_204449) do
     t.bigint "user_id"
     t.integer "mode", default: 0, null: false
     t.index ["user_id"], name: "index_foodhistories_on_user_id"
+  end
+
+  create_table "foodhistory_images", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "avatar"
+    t.bigint "foodhistory_id", null: false
+    t.index ["foodhistory_id"], name: "index_foodhistory_images_on_foodhistory_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -70,6 +78,7 @@ ActiveRecord::Schema.define(version: 2018_11_26_204449) do
   end
 
   add_foreign_key "foodhistories", "users"
+  add_foreign_key "foodhistory_images", "foodhistories"
   add_foreign_key "likes", "foodhistories"
   add_foreign_key "likes", "users"
   add_foreign_key "userfeatures", "users"
