@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Notifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>いいねをされた食事</th>
+      <th>いいねをされたユーザ</th>
+      <th>いいねをしたユーザ</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.like.foodhistory.name %></td>
+        <td><%= notification.user.name %></td>
+        <td><%= notification.like.user.name %></td>
+        <td><%= link_to 'Show', notification %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

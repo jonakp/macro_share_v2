@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notifications, only: [:index, :show]
   resources :foodhistories
   resources :userfeatures
   devise_for :users, controllers: { registrations: 'users/registrations' }

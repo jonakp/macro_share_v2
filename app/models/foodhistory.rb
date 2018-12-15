@@ -20,7 +20,10 @@ class Foodhistory < ApplicationRecord
   end
 
   def like(user)
-    likes.create!(user_id: user.id)
+    likes.transaction do
+      like = likes.create!(user_id: user.id)
+      like.foodhistory.user.notifications.create!(like_id: like.id)
+    end
   end
 
   def unlike(user)
