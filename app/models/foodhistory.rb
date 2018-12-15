@@ -23,6 +23,7 @@ class Foodhistory < ApplicationRecord
     likes.transaction do
       like = likes.create!(user_id: user.id)
       like.foodhistory.user.notifications.create!(like_id: like.id)
+      UserMailer.with(user: user, like: like).like_notification_email.deliver_later
     end
   end
 
