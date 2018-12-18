@@ -74,7 +74,7 @@ class FoodhistoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def foodhistory_params
-      params.require(:foodhistory).permit(:name, :calorie, :protein, :fat, :carbo, :image_name, :mode, foodhistory_images_attributes: [:avatar])
-
+      params.require(:foodhistory).permit(:name, :calorie, :protein, :fat, :carbo, :image_name, :mode,
+        foodhistory_images_attributes: [:id, :avatar, :avatar_cache, :_destroy])
     end
 end
