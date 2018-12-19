@@ -41,17 +41,15 @@
     <%= form.number_field :carbo %>
   </div>
 
-  <%= form.fields_for :foodhistory_images, foodhistory_image do |foodhistory_image_field| %>
-      <%= form.label :avatar %>
-      <%= foodhistory_image_field.file_field :avatar %>
-  <% end %>
-
-  <% foodhistory.foodhistory_images.each do |foodhistory_image| %>
-    <br>
-    <% unless foodhistory_image.avatar.file.nil? %>
-      <%= image_tag foodhistory_image.avatar.url  %>
-      <%= link_to "destroy", foodhistory_image_path(foodhistory_image), method: :delete %>
+  <%= form.fields_for :foodhistory_images do |i| %>
+    <%= i.label :avatar, style: 'padding-top: 30px;' %>
+    <%= i.hidden_field :avatar_cache %><!-- for redisplay on validation error -->
+    <% if i.object.avatar.present? %>
+      <%= image_tag i.object.avatar.url, width: '200'  %>
+      delete<%= i.check_box :_destroy %>
     <% end %>
+    <br>
+    <%= i.file_field :avatar %>
   <% end %>
 
   <div class="actions">
