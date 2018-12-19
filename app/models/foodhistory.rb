@@ -20,11 +20,11 @@ class Foodhistory < ApplicationRecord
   end
 
   def like(user)
-    likes.transaction do
+    Like.transaction do
       like = likes.create!(user_id: user.id)
       like.foodhistory.user.notifications.create!(like_id: like.id)
     end
-    UserMailer.with(user: user, like: likes.find_by(user: user)).like_notification_email.deliver_later!
+    UserMailer.like_notification_email(user, self).deliver_later
   end
 
   def unlike(user)
