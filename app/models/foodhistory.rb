@@ -19,18 +19,19 @@ class Foodhistory < ApplicationRecord
   end
 
   def liked_by?(user)
-    likes.where(user: user).present?
+    likes.where(user: user).first.activate_status?
   end
 
   def like(user)
     Like.transaction do
-      like = likes.create!(user_id: user.id)
-      like.foodhistory.user.notifications.create!(like_id: like.id)
+      like = likes.find_by(user: user)
+      like.present? ? like.activate_status! : like = likes.create!(user: user)
+      like.foodhistory.user.notifications.create!(like: like)
     end
     UserMailer.like_notification_email(user, self).deliver_later
   end
 
   def unlike(user)
-    likes.find_by!(user_id: user.id).destroy
+    likes.find_by!(user: user).inactivate_status!
   end
 end
