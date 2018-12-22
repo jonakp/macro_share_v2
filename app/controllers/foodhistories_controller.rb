@@ -17,12 +17,11 @@ class FoodhistoriesController < ApplicationController
   def new
     @foodhistory = params[:reuse_record_id] ?
      Foodhistory.find(params[:reuse_record_id]).dup : Foodhistory.new
-    @foodhistory.foodhistory_images.build
+    2.times { @foodhistory.foodhistory_images.build }
   end
 
   # GET /foodhistories/1/edit
   def edit
-    @foodhistory.foodhistory_images.build
   end
 
   # POST /foodhistories
