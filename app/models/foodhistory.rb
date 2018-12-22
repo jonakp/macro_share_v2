@@ -19,7 +19,7 @@ class Foodhistory < ApplicationRecord
   end
 
   def liked_by?(user)
-    likes.where(user: user).first.activate_status?
+    likes.where(user: user).first&.activate_status?
   end
 
   def like(user)
