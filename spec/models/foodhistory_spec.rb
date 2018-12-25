@@ -4,6 +4,12 @@ RSpec.describe Foodhistory, type: :model do
   let(:user) { create(:user) }
   let(:foodhistory) { create(:foodhistory) }
 
+  describe "#liked_by?" do
+    context "before liked" do
+      it { expect(foodhistory.liked_by?(user)).to be_falsey }
+    end
+  end
+
   describe "#like" do
     before do
       foodhistory.like(user)
@@ -21,16 +27,17 @@ RSpec.describe Foodhistory, type: :model do
         expect(Notification.where(user: foodhistory.user).size).to eq(1)
       end
 
-      it 'should be able to unlike and like again' do
-        foodhistory.unlike(user)
-        foodhistory.like(user)
-        expect(Like.by_user_and_foodhistory(user, foodhistory).first.activate_status?).to be true
-        expect(foodhistory).to be_liked_by(user)
-        expect(Notification.where(user: foodhistory.user).size).to eq(2)
-        # expect(ActionMailer::Base.deliveries.size).to eq(2)
+      context 'return to unliked' do
+        it 'should be able to like again' do
+          foodhistory.unlike(user)
+          foodhistory.like(user)
+          expect(Like.by_user_and_foodhistory(user, foodhistory).first.activate_status?).to be true
+          expect(foodhistory).to be_liked_by(user)
+          expect(Notification.where(user: foodhistory.user).size).to eq(2)
+          # expect(ActionMailer::Base.deliveries.size).to eq(2)
+        end
       end
     end
-
   end
 
   describe "#unlike" do
