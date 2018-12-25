@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_203955) do
+ActiveRecord::Schema.define(version: 2018_12_12_223945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 2018_12_10_203955) do
     t.datetime "updated_at", null: false
     t.index ["foodhistory_id"], name: "index_likes_on_foodhistory_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "like_id", null: false
+    t.index ["like_id"], name: "index_notifications_on_like_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "userfeatures", force: :cascade do |t|
@@ -81,5 +90,7 @@ ActiveRecord::Schema.define(version: 2018_12_10_203955) do
   add_foreign_key "foodhistory_images", "foodhistories"
   add_foreign_key "likes", "foodhistories"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "likes"
+  add_foreign_key "notifications", "users"
   add_foreign_key "userfeatures", "users"
 end
