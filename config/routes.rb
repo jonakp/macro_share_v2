@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [:index, :show]
   resources :foodhistories
   resources :userfeatures
+  resources :userfeature_forms, only: [:new, :edit, :create, :update]
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :users
   get "/users/:id/on/:year/:month/:day" => "users#show"
