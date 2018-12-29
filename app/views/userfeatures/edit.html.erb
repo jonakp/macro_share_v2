@@ -1,8 +1,0 @@
-<h1>Editing Userfeature</h1>
-
-<%= form_with(model: current_user, local: true, url: userfeature_path, method: :patch) do |form| %>
-<%= render 'form', userfeature: @userfeature, form: form %>
-<% end %>
-
-<%= link_to 'Show', @userfeature %> |
-<%= link_to 'Back', userfeatures_path %>
