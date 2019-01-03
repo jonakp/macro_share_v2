@@ -36,7 +36,7 @@
         <td><%= userfeature.carbo %></td>
         <td><%= link_to 'Show', userfeature %></td>
         <% if userfeature.can_edit?(current_user) %>
-          <td><%= link_to 'Edit', edit_userfeature_path(userfeature) %></td>
+          <td><%= link_to 'Edit', edit_userfeature_form_path(userfeature) %></td>
           <td><%= link_to 'Destroy', userfeature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
@@ -46,4 +46,4 @@
 
 <br>
 
-<%= link_to 'New Userfeature', new_userfeature_path %>
+<%= link_to 'New Userfeature', new_userfeature_form_path %>

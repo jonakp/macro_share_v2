@@ -5,6 +5,8 @@ ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
+# User Virtus for form object
+gem 'virtus', '~> 1.0.5'
 # Use carrierwave for upload files
 gem 'carrierwave', '~> 1.0'
 # Use rubocop for static code analyzer
@@ -62,6 +64,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
   gem 'letter_opener_web', '~> 1.0'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do

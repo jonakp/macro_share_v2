@@ -1,0 +1,60 @@
+<%= form_with(model: userfeature_form, local: true) do |form| %>
+  <% if userfeature_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(userfeature_form.errors.count, "error") %> prohibited this userfeature from being saved:</h2>
+
+      <ul>
+      <% userfeature_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gender %>
+    <%= form.select :gender, User.genders_i18n.invert %>
+  </div>
+
+  <div class="field">
+    <%= form.label :height %>
+    <%= form.number_field :height %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weight %>
+    <%= form.number_field :weight %>
+  </div>
+
+  <div class="field">
+    <%= form.label :age %>
+    <%= form.number_field :age %>
+  </div>
+
+  <div class="field">
+    <%= form.label :activity%><br>
+    <%= form.select :activity, Userfeature.activities_i18n.invert %>
+  </div>
+
+  Activityの目安
+  <ul>
+  <li>activity = 低い：座り仕事が多い</li>
+  <li>activity = 普通：立ち仕事や重労働が多い</li>
+  <li>activity = 低い：立ち仕事や重労働が多い＆運動もしている</li>
+  </ul>
+
+  <div class="field">
+    <%= form.label :purpose%><br>
+    <%= form.select :purpose, Userfeature.purposes_i18n.invert %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>
