@@ -6,16 +6,32 @@ class UserfeatureForm
   attr_reader :user
   attr_reader :userfeature
 
-  attribute :id, Integer
   attribute :name, String
   attribute :gender, Integer
+  attribute :id, Integer
   attribute :height, Integer
   attribute :weight, Integer
   attribute :age, Integer
   attribute :activity, Integer
   attribute :purpose, Integer
-  attribute :user, User
-  attribute :userfeature, Userfeature
+
+  def initialize(user, userfeature)
+    @user = user
+    @userfeature = userfeature
+
+    self.attributes = user.attributes.symbolize_keys.slice(:name, :gender)
+    self.attributes = userfeature.attributes.symbolize_keys.slice(
+      :id, :height, :weight, :age, :activity, :purpose
+    )
+  end
+
+  def self.build(user)
+    UserfeatureForm.new(user, user.userfeatures.build)
+  end
+
+  def self.find(user, userfeature_id)
+    UserfeatureForm.new(user, Userfeature.find(userfeature_id))
+  end
 
   def save
     if valid?
@@ -26,46 +42,25 @@ class UserfeatureForm
     end
   end
 
-  def update
-    if valid?
-      update_forms!
-      true
-    else
-      false
-    end
-  end
-
   def persisted?
-    @userfeature
+    @userfeature.persisted?
   end
 
   private
 
     def persist!
       ActiveRecord::Base.transaction do
-        @user.update!(user_params)
-        @userfeature = user.userfeatures.create!(userfeature_params)
+        @user.attributes = { name: name, gender: gender }
+        @userfeature.attributes = {
+          height: height,
+          weight: weight,
+          age: age,
+          activity: activity,
+          purpose: purpose
+        }
+
+        @user.save!
+        @userfeature.save!
       end
-    end
-
-    def update_forms!
-      ActiveRecord::Base.transaction do
-        @user.update!(user_params)
-        @userfeature.update!(userfeature_params)
-      end
-    end
-
-    def user_params
-      { name: name, gender: gender }
-    end
-
-    def userfeature_params
-      {
-        height: height,
-        weight: weight,
-        age: age,
-        activity: activity,
-        purpose: purpose
-      }
     end
 end
