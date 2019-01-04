@@ -1,6 +1,8 @@
 class FoodhistoriesController < ApplicationController
   before_action :set_foodhistory, only: [:show, :edit, :update, :destroy]
 
+  MAX_IMAGE_NUM = 2
+
   # GET /foodhistories
   # GET /foodhistories.json
   def index
@@ -17,12 +19,13 @@ class FoodhistoriesController < ApplicationController
   def new
     @foodhistory = params[:reuse_record_id] ?
      Foodhistory.find(params[:reuse_record_id]).dup : Foodhistory.new
-    @foodhistory.foodhistory_images.build
+    MAX_IMAGE_NUM.times { @foodhistory.foodhistory_images.build }
   end
 
   # GET /foodhistories/1/edit
   def edit
-    @foodhistory.foodhistory_images.build
+    build_number = MAX_IMAGE_NUM - @foodhistory.foodhistory_images.size
+    build_number.times { @foodhistory.foodhistory_images.build }
   end
 
   # POST /foodhistories
